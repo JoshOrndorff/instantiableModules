@@ -1,4 +1,5 @@
 /// A runtime module template with necessary imports
+/// This module supports and demonstrate instantiable modules
 
 /// Feel free to remove or edit this file as needed.
 /// If you change the name of this file, make sure to update its references in runtime/src/lib.rs
@@ -12,17 +13,17 @@ use support::{decl_module, decl_storage, decl_event, StorageValue, dispatch::Res
 use system::ensure_signed;
 
 /// The module's configuration trait.
-pub trait Trait: system::Trait {
+pub trait Trait<I: Instance=DefaultInstance>: system::Trait {
 	// TODO: Add other types and constants required configure this module.
 
-	/// The overarching event type.
-	type Event: From<Event<Self>> + Into<<Self as system::Trait>::Event>;
+	// The overarching event type.
+	//type Event: From<Event<Self>> + Into<<Self as system::Trait>::Event>;
 }
 
 /// This module's storage items.
 decl_storage! {
-	trait Store for Module<T: Trait> as TemplateModule {
-		// Just a dummy storage item. 
+	trait Store for Module<T: Trait<I>, I: Instance=DefaultInstance> as TemplateModule {
+		// Just a dummy storage item.
 		// Here we are declaring a StorageValue, `Something` as a Option<u32>
 		// `get(something)` is the default getter which returns either the stored `u32` or `None` if nothing stored
 		Something get(something): Option<u32>;
@@ -31,10 +32,10 @@ decl_storage! {
 
 decl_module! {
 	/// The module declaration.
-	pub struct Module<T: Trait> for enum Call where origin: T::Origin {
+	pub struct Module<T: Trait<I>, I: Instance=DefaultInstance> for enum Call where origin: T::Origin {
 		// Initializing events
 		// this is needed only if you are using events in your module
-		fn deposit_event<T>() = default;
+		//fn deposit_event<T, I>() = default;
 
 		// Just a dummy entry point.
 		// function that can be called by the external world as an extrinsics call
@@ -45,23 +46,23 @@ decl_module! {
 
 			// TODO: Code to execute when something calls this.
 			// For example: the following line stores the passed in u32 in the storage
-			<Something<T>>::put(something);
+			<Something<T, I>>::put(something);
 
 			// here we are raising the Something event
-			Self::deposit_event(RawEvent::SomethingStored(something, who));
+			//Self::deposit_event(RawEvent::SomethingStored(something, who));
 			Ok(())
 		}
 	}
 }
 
-decl_event!(
-	pub enum Event<T> where AccountId = <T as system::Trait>::AccountId {
-		// Just a dummy event.
-		// Event `Something` is declared with a parameter of the type `u32` and `AccountId`
-		// To emit this event, we call the deposit funtion, from our runtime funtions
-		SomethingStored(u32, AccountId),
-	}
-);
+// decl_event!(
+// 	pub enum Event<T, I> where AccountId = <T as system::Trait>::AccountId {
+// 		// Just a dummy event.
+// 		// Event `Something` is declared with a parameter of the type `u32` and `AccountId`
+// 		// To emit this event, we call the deposit funtion, from our runtime funtions
+// 		SomethingStored(u32, AccountId),
+// 	}
+// );
 
 /// tests for this module
 #[cfg(test)]

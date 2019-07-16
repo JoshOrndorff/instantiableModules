@@ -189,7 +189,7 @@ impl sudo::Trait for Runtime {
 
 /// Used for the module template in `./template.rs`
 impl template::Trait for Runtime {
-	type Event = Event;
+	//type Event = Event;
 }
 
 construct_runtime!(
@@ -206,7 +206,7 @@ construct_runtime!(
 		Balances: balances,
 		Sudo: sudo,
 		// Used for the module template in `./template.rs`
-		TemplateModule: template::{Module, Call, Storage, Event<T>},
+		TemplateModule: template::{Module, Call, Storage/*, Event<T>*/},
 	}
 );
 
