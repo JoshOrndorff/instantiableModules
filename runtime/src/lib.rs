@@ -206,7 +206,7 @@ construct_runtime!(
 		Balances: balances,
 		Sudo: sudo,
 		// Used for the module template in `./template.rs`
-		TemplateModule: template::{Module, Call, Storage/*, Event<T>*/},
+		TemplateModule: template::{Module, Call, Storage, Config<T>/*, Event<T>*/},
 	}
 );
 
