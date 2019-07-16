@@ -35,7 +35,7 @@ decl_module! {
 	pub struct Module<T: Trait<I>, I: Instance=DefaultInstance> for enum Call where origin: T::Origin {
 		// Initializing events
 		// this is needed only if you are using events in your module
-		//fn deposit_event<T, I>() = default;
+		fn deposit_event<T, I>() = default;
 
 		// Just a dummy entry point.
 		// function that can be called by the external world as an extrinsics call
@@ -55,14 +55,14 @@ decl_module! {
 	}
 }
 
-// decl_event!(
-// 	pub enum Event<T, I> where AccountId = <T as system::Trait>::AccountId {
-// 		// Just a dummy event.
-// 		// Event `Something` is declared with a parameter of the type `u32` and `AccountId`
-// 		// To emit this event, we call the deposit funtion, from our runtime funtions
-// 		SomethingStored(u32, AccountId),
-// 	}
-// );
+decl_event!(
+	pub enum Event<T, I> where AccountId = <T as system::Trait>::AccountId {
+		// Just a dummy event.
+		// Event `Something` is declared with a parameter of the type `u32` and `AccountId`
+		// To emit this event, we call the deposit funtion, from our runtime funtions
+		SomethingStored(u32, AccountId),
+	}
+);
 
 /// tests for this module
 #[cfg(test)]
