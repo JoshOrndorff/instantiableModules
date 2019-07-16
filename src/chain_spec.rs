@@ -118,6 +118,11 @@ fn testnet_genesis(initial_authorities: Vec<AuthorityId>, endowed_accounts: Vec<
         template: Some(TemplateModuleConfig {
             _genesis_phantom_data: Default::default(),
             something: 777,
-        })
+        }),
+        // Have to configure both instances seperately
+        template_Instance2: Some(TemplateModuleConfig {
+            _genesis_phantom_data: Default::default(),
+            something: 666,
+        }),
 	}
 }
