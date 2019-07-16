@@ -32,7 +32,7 @@ pub use timestamp::Call as TimestampCall;
 pub use balances::Call as BalancesCall;
 pub use runtime_primitives::{Permill, Perbill};
 pub use timestamp::BlockPeriod;
-pub use support::{StorageValue, construct_runtime};
+pub use srml_support::{StorageValue, construct_runtime};
 
 /// The type that is used for identifying authorities.
 pub type AuthorityId = <AuthoritySignature as Verify>::Signer;
@@ -213,9 +213,9 @@ construct_runtime!(
 		Balances: balances,
 		Sudo: sudo,
 		// Used for the module template in `./template.rs`
-		TemplateModule: template::{Module, Call, Storage, Config<T>, Event<T>, Origin<T>},
+		TemplateModule: template::{Module, Call, Storage, Config<T>, Event<T>},
         // Docs on how to do this are in https://crates.parity.io/srml_support/macro.construct_runtime.html
-		SecondCopy: template::<Instance2>::{Module, Call, Storage, Config<T>, Event<T, I>, Origin<T, I>},
+		SecondCopy: template::<Instance2>::{Module, Call, Storage, Config<T>, Event<T, I>},
 	}
 );
 

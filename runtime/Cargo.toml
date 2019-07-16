@@ -12,7 +12,7 @@ std = [
     'client/std',
     'rstd/std',
     'runtime-io/std',
-    'support/std',
+    'srml_support/std',
     'balances/std',
     'executive/std',
     'aura/std',
@@ -125,7 +125,14 @@ git = 'https://github.com/paritytech/substrate.git'
 package = 'srml-sudo'
 rev = '2e30b7321df0cc4dba525cfcf18df8438e12b830'
 
-[dependencies.support]
+# Rename this import to work around potential macro issue.
+# [dependencies.support]
+# default_features = false
+# git = 'https://github.com/paritytech/substrate.git'
+# package = 'srml-support'
+# rev = '2e30b7321df0cc4dba525cfcf18df8438e12b830'
+
+[dependencies.srml_support]
 default_features = false
 git = 'https://github.com/paritytech/substrate.git'
 package = 'srml-support'

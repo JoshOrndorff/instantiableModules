@@ -9,7 +9,7 @@
 /// For more guidance on Substrate modules, see the example module
 /// https://github.com/paritytech/substrate/blob/master/srml/example/src/lib.rs
 
-use support::{decl_module, decl_storage, decl_event, StorageValue, dispatch::Result};
+use srml_support::{decl_module, decl_storage, decl_event, StorageValue, dispatch::Result};
 use system::ensure_signed;
 
 /// The module's configuration trait.
@@ -17,7 +17,7 @@ pub trait Trait<I: Instance=DefaultInstance>: system::Trait {
 	// TODO: Add other types and constants required configure this module.
 
 	// The overarching event type.
-	//type Event: From<Event<Self>> + Into<<Self as system::Trait>::Event>;
+	type Event: From<Event<Self, I>> + Into<<Self as system::Trait>::Event>;
 }
 
 /// This module's storage items.
@@ -56,10 +56,13 @@ decl_module! {
 }
 
 decl_event!(
-	pub enum Event<T, I> where AccountId = <T as system::Trait>::AccountId {
+	pub enum Event<T, I=DefaultInstance> where
+        AccountId = <T as system::Trait>::AccountId,
+        //Phantom = rstd::marker::PhantomData<T>,
+    {
 		/// Dummy to manage the fact we have instancing.
         /// https://github.com/paritytech/substrate/blob/7688cbca72e3d189cae9ae9f3b9b13cfff189952/srml/collective/src/lib.rs#L106
-		_Phantom(Phantom),
+		//_Phantom(Phantom),
 
 		// Just a dummy event.
 		// Event `Something` is declared with a parameter of the type `u32` and `AccountId`
@@ -75,7 +78,7 @@ mod tests {
 
 	use runtime_io::with_externalities;
 	use primitives::{H256, Blake2Hasher};
-	use support::{impl_outer_origin, assert_ok};
+	use srml_support::{impl_outer_origin, assert_ok};
 	use runtime_primitives::{
 		BuildStorage,
 		traits::{BlakeTwo256, IdentityLookup},
