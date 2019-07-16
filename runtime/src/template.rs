@@ -57,6 +57,10 @@ decl_module! {
 
 decl_event!(
 	pub enum Event<T, I> where AccountId = <T as system::Trait>::AccountId {
+		/// Dummy to manage the fact we have instancing.
+        /// https://github.com/paritytech/substrate/blob/7688cbca72e3d189cae9ae9f3b9b13cfff189952/srml/collective/src/lib.rs#L106
+		_Phantom(Phantom),
+
 		// Just a dummy event.
 		// Event `Something` is declared with a parameter of the type `u32` and `AccountId`
 		// To emit this event, we call the deposit funtion, from our runtime funtions
